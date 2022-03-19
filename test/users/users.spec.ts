@@ -104,6 +104,7 @@ test.group('User', (group) => {
     const avatar = 'https://avatars.githubusercontent.com/u/88801947?s=400&u=3ef7dec1849bcfc6eaae83705a3da5be24dbdc75&v=4'
 
     const {body} = await supertest(BASE_URL)
+
     .put(`/users/${id}`)
     .send({
       email,

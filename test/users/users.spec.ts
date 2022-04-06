@@ -98,21 +98,21 @@ test.group('User', (group) => {
     assert.equal(body.status, 422)
   })
 
-  test('It should update an user', async (assert)=>{
+  test('It should update an user', async ()=>{
     const {id, password} = await UserFactory.create()
     const email = 'test@test.com'
     const avatar = 'https://avatars.githubusercontent.com/u/88801947?s=400&u=3ef7dec1849bcfc6eaae83705a3da5be24dbdc75&v=4'
 
-    const {body} = await supertest(BASE_URL)
-
-    .put(`/users/${id}`)
-    .send({
-      email,
-      avatar,
-      password,
-    })
-    .expect(200)
+    await supertest(BASE_URL)
+      .put(`/users/${id}`)
+      .send({
+        email,
+        avatar,
+        password,
+      })
+      .expect(200)
   })
+
     test('It should update user password', async (assert)=>{
       const user = await UserFactory.create()
       const password = 'test'

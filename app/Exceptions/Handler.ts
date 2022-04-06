@@ -30,12 +30,19 @@ export default class ExceptionHandler extends HttpExceptionHandler {
         status: error.status,
         error: error['messages']?.errors ? error['messages'].errors : ""
       })
-    }else if(error.code === 'E_ROW_NOT_FOUND'){
+    }
+    else if(error.code === 'E_ROW_NOT_FOUND'){
       return ctx.response.status(error.status).send({
         code: 'BAD_REQUEST',
         message: 'resouce not found',
         status: 404,
-        error: error['messages']?.errors ? error['messages'].errors : ""
+      })
+    }
+    else if(['E_INVALID_AUTH_UID', 'E_INVALID_AUTH_PASSWORD'].includes(error.code || '')){
+      return ctx.response.status(error.status).send({
+        code: 'BAD_REQUEST',
+        message: 'invalid credentials',
+        status: 400,
       })
     }
 

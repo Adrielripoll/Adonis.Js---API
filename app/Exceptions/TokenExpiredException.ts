@@ -24,6 +24,6 @@ export default class TokenExpiredException extends Exception {
   public async handle(error: this, ctx: HttpContextContract){
     return ctx.response
       .status(error.status)
-      .send({code: error.code, message: error.message, status: error.message})
+      .send({code: error.code, message: error.message, status: error.status})
   }
 }

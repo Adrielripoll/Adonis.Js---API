@@ -103,7 +103,7 @@ test.group('Password', (group) => {
     assert.equal(body.status, 404)
   })
 
-  test.only('it cannot reset password when token is expired after 2 hours', async (assert)=>{
+  test('it cannot reset password when token is expired after 2 hours', async (assert)=>{
     const user = await UserFactory.create()
     const date = DateTime.now().minus(Duration.fromISOTime('02:01'))
     const {token} = await user.related('tokens').create({token: 'token', createdAt: date})
@@ -115,7 +115,7 @@ test.group('Password', (group) => {
       password: '1234'
     })
     .expect(410)
-
+    console.log(body)
     assert.equal(body.code, 'TOKEN_EXPIRED')
     assert.equal(body.status, 410)
     assert.equal(body.message, 'token has expired')
